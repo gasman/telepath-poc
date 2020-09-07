@@ -14,7 +14,7 @@ class Circle:
 class CircleAdapter(Adapter):
     js_constructor = 'shapes.Circle'
 
-    def js_args(self, obj):
+    def js_args(self, obj, context):
         return [obj.radius, obj.colour]
 
     class Media:
@@ -33,7 +33,7 @@ class Rectangle:
 class RectangleAdapter(Adapter):
     js_constructor = 'shapes.Rectangle'
 
-    def js_args(self, obj):
+    def js_args(self, obj, context):
         return [obj.width, obj.height, obj.colour]
 
     class Media:

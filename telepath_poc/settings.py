@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'telepath',
     'collage',
+    'formfields',
 ]
 
 MIDDLEWARE = [

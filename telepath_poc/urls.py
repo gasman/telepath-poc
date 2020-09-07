@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from collage.views import index
+from collage.views import index as collage_index
+from formfields.views import index as formfields_index
 
 urlpatterns = [
-    path('', index),
+    path('', collage_index),
+    path('forms/', formfields_index),
     path('admin/', admin.site.urls),
 ]

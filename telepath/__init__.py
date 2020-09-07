@@ -22,7 +22,7 @@ class JSContext:
             raise Exception("don't know how to add object to JS context: %r" % obj)
 
         self.media += adapter.media
-        return [adapter.js_constructor, *adapter.js_args(obj)]
+        return [adapter.js_constructor, *adapter.js_args(obj, self)]
 
 
 class Adapter(metaclass=MediaDefiningClass):

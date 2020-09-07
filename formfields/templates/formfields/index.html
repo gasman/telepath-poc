@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        {{ media.js }}
+        {{ media.css }}
+        <script>
+
+document.addEventListener('DOMContentLoaded', event => {
+    var widgetData = JSON.parse(document.body.dataset.widgets);
+    widgets = [];
+    for (name in widgetData) {
+        widgets[name] = telepath.unpack(widgetData[name]);
+    }
+    widgets.title.render(document.body, 'title', 'id_title', "Matthew");
+    widgets.description.render(document.body, 'description', 'id_description', "just this guy, y'know?");
+    widgets.office.render(document.body, 'office', 'id_office', "charlbury");
+});
+
+        </script>
+    </head>
+    <body data-widgets="{{ widgets }}">
+    </body>
+</html>
