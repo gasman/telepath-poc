@@ -2,7 +2,7 @@ import json
 
 from django import forms
 
-from telepath.context import JSContext
+from telepath import JSContext
 
 class Collage:
     def __init__(self, shapes):

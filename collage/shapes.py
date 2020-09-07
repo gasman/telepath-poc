@@ -1,9 +1,8 @@
 import json
 
 from django.db import models
-from django.forms import MediaDefiningClass
 
-from telepath.context import register
+from telepath import register, Adapter
 
 
 class Circle:
@@ -12,7 +11,7 @@ class Circle:
         self.colour = colour
 
 
-class CircleAdapter(metaclass=MediaDefiningClass):
+class CircleAdapter(Adapter):
     js_constructor = 'shapes.Circle'
 
     def js_args(self, obj):
@@ -31,7 +30,7 @@ class Rectangle:
         self.colour = colour
 
 
-class RectangleAdapter(metaclass=MediaDefiningClass):
+class RectangleAdapter(Adapter):
     js_constructor = 'shapes.Rectangle'
 
     def js_args(self, obj):
