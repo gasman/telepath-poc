@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from telepath.views import index
+from collage.views import index
 
 urlpatterns = [
     path('', index),

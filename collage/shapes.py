@@ -1,9 +1,9 @@
 import json
 
 from django.db import models
-from django.forms import Media, MediaDefiningClass
+from django.forms import MediaDefiningClass
 
-from .context import register, JSContext
+from telepath.context import register
 
 
 class Circle:
@@ -19,7 +19,7 @@ class CircleAdapter(metaclass=MediaDefiningClass):
         return [obj.radius, obj.colour]
 
     class Media:
-        js = ['shapes/circle.js']
+        js = ['collage/js/shapes/circle.js']
 
 register(CircleAdapter(), Circle)
 
@@ -38,19 +38,6 @@ class RectangleAdapter(metaclass=MediaDefiningClass):
         return [obj.width, obj.height, obj.colour]
 
     class Media:
-        js = ['shapes/rectangle.js']
+        js = ['collage/js/shapes/rectangle.js']
 
 register(RectangleAdapter(), Rectangle)
-
-
-class Collage:
-    def __init__(self, shapes):
-        self.js_context = JSContext()
-        self.shape_decls = json.dumps([
-            self.js_context.pack(shape)
-            for shape in shapes
-        ])
-
-    @property
-    def media(self):
-        return self.js_context.media + Media(js=['collage.js'])
