@@ -1,7 +1,7 @@
 import json
 
 from django.db import models
-from django.forms import MediaDefiningClass
+from django.forms import Media, MediaDefiningClass
 
 from .context import register, JSContext
 
@@ -50,4 +50,4 @@ class Collage:
 
     @property
     def media(self):
-        return self.js_context.media
+        return Media(js=['collage.js']) + self.js_context.media
