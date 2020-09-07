@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        {{ collage.media.js }}
+        {{ collage.media.css }}
+
+        <script>
+            shapes = [
+                {% for decl in collage.shape_decls %}
+                    {{ decl|safe }},
+                {% endfor %}
+            ];
+        </script>
+    </head>
+    <body>
+        <h1>hello world</h1>
+    </body>
+</html>
