@@ -10,3 +10,5 @@ class Rectangle {
         ctx.fillRect(x, y, this.width, this.height);
     }
 }
+
+telepath.register('shapes.Rectangle', Rectangle);

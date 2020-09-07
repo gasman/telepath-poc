@@ -3,16 +3,8 @@
     <head>
         {{ collage.media.js }}
         {{ collage.media.css }}
-
-        <script>
-            shapes = [
-                {% for decl in collage.shape_decls %}
-                    {{ decl|safe }},
-                {% endfor %}
-            ];
-        </script>
     </head>
     <body>
-        <canvas class="collage" width="640" height="480"></canvas>
+        <canvas class="collage" width="640" height="480" data-shapes="{{ collage.shape_decls }}"></canvas>
     </body>
 </html>

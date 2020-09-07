@@ -11,3 +11,5 @@ class Circle {
         ctx.fill();
     }
 }
+
+telepath.register('shapes.Circle', Circle);

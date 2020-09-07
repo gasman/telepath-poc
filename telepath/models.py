@@ -13,9 +13,10 @@ class Circle:
 
 
 class CircleAdapter(metaclass=MediaDefiningClass):
-    # FIXME: json.dumps doesn't escape </script> inside the string
-    def jsify(self, obj):
-        return "new Circle(%d, %s)" % (obj.radius, json.dumps(obj.colour))
+    js_constructor = 'shapes.Circle'
+
+    def js_args(self, obj):
+        return [obj.radius, obj.colour]
 
     class Media:
         js = ['shapes/circle.js']
@@ -31,8 +32,10 @@ class Rectangle:
 
 
 class RectangleAdapter(metaclass=MediaDefiningClass):
-    def jsify(self, obj):
-        return "new Rectangle(%d, %d, %s)" % (obj.width, obj.height, json.dumps(obj.colour))
+    js_constructor = 'shapes.Rectangle'
+
+    def js_args(self, obj):
+        return [obj.width, obj.height, obj.colour]
 
     class Media:
         js = ['shapes/rectangle.js']
@@ -43,11 +46,11 @@ register(RectangleAdapter(), Rectangle)
 class Collage:
     def __init__(self, shapes):
         self.js_context = JSContext()
-        self.shape_decls = [
-            self.js_context.jsify(shape)
+        self.shape_decls = json.dumps([
+            self.js_context.pack(shape)
             for shape in shapes
-        ]
+        ])
 
     @property
     def media(self):
-        return Media(js=['collage.js']) + self.js_context.media
+        return self.js_context.media + Media(js=['collage.js'])

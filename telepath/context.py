@@ -8,10 +8,10 @@ def register(adapter, cls):
 
 class JSContext:
     def __init__(self):
-        self.media = forms.Media()
+        self.media = forms.Media(js=['telepath.js'])
         self.objects = {}
 
-    def jsify(self, obj):
+    def pack(self, obj):
         for cls in type(obj).__mro__:
             adapter = adapters.get(cls)
             if adapter:
@@ -21,4 +21,4 @@ class JSContext:
             raise Exception("don't know how to add object to JS context: %r" % obj)
 
         self.media += adapter.media
-        return adapter.jsify(obj)
+        return [adapter.js_constructor, *adapter.js_args(obj)]
