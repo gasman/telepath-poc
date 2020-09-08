@@ -9,7 +9,7 @@ from telepath import register, Adapter
 class MyForm(forms.Form):
     title = forms.CharField()
     description = forms.CharField(widget=forms.Textarea)
-    office = forms.ChoiceField(choices=[('charlbury', "Charlbury"), ('bristol', "Bristol")])
+    office = forms.ChoiceField(choices=[('charlbury', "Charlbury"), ('bristol', "Bristol")], widget=forms.RadioSelect)
     profile_page = forms.ModelChoiceField(queryset=Page.objects.all(), widget=AdminPageChooser(can_choose_root=False))
 
 
@@ -28,6 +28,12 @@ class WidgetAdapter(Adapter):
 register(WidgetAdapter(), forms.widgets.Input)
 register(WidgetAdapter(), forms.Textarea)
 register(WidgetAdapter(), forms.Select)
+
+
+class RadioSelectAdapter(WidgetAdapter):
+    js_constructor = 'formfields.RadioSelect'
+
+register(RadioSelectAdapter(), forms.RadioSelect)
 
 
 class PageChooserAdapter(Adapter):

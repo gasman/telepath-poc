@@ -1,16 +1,16 @@
 class BoundWidget {
-    constructor(id) {
-        this.id = id;
+    constructor(element, name) {
+        var selector = ':input[name="' + name + '"]';
+        this.input = element.find(selector).addBack(selector);  // find, including element itself
     }
     getValue() {
-        // FIXME: getElementById won't work for radio buttons / checkboxes
-        return document.getElementById(this.id).value;
+        return this.input.val();
     }
     getState() {
-        return document.getElementById(this.id).value;
+        return this.input.val();
     }
     setState(state) {
-        document.getElementById(this.id).value = state;
+        this.input.val(state);
     }
 }
 
@@ -24,10 +24,38 @@ class Widget {
         var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
         var dom = $(html);
         $(container).append(dom);
-        return new BoundWidget(id);
+        return new BoundWidget(dom, name);
     }
 }
 telepath.register('formfields.Widget', Widget);
+
+
+class BoundRadioSelect {
+    constructor(element, name) {
+        this.element = element;
+        this.name = name;
+        this.selector = 'input[name="' + name + '"]:checked';
+    }
+    getValue() {
+        return this.element.find(this.selector).val();
+    }
+    getState() {
+        return this.element.find(this.selector).val();
+    }
+    setState(state) {
+        this.element.find('input[name="' + this.name + '"]').val([state]);
+    }
+}
+
+class RadioSelect extends Widget {
+    render(container, name, id) {
+        var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
+        var dom = $(html);
+        $(container).append(dom);
+        return new BoundRadioSelect(dom, name);
+    }
+}
+telepath.register('formfields.RadioSelect', RadioSelect);
 
 
 class PageChooser {

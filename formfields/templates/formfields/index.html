@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', event => {
     var formData = JSON.parse(body.dataset.formdata);
     for (fieldName in formData) {
         var div = document.createElement('div');
+        div.style.clear='both';
         body.appendChild(div);
         widgets[fieldName].render(div, fieldName, 'id_' + fieldName).setState(formData[fieldName]);
     }
