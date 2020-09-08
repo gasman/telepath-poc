@@ -1,14 +1,18 @@
-{% load static %}
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <script src="{% static 'formfields/js/jquery-3.5.1.min.js' %}"></script>
-        {{ media.js }}
-        {{ media.css }}
-        <script>
+{% extends "wagtailadmin/base.html" %}
+
+{% block extra_css %}
+    {{ media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {{ media.js }}
+
+    <script>
 
 document.addEventListener('DOMContentLoaded', event => {
-    var widgetData = JSON.parse(document.body.dataset.widgets);
+    var body = document.getElementById('form-field-demo');
+
+    var widgetData = JSON.parse(body.dataset.widgets);
     widgets = [];
     for (name in widgetData) {
         widgets[name] = telepath.unpack(widgetData[name]);
@@ -16,20 +20,23 @@ document.addEventListener('DOMContentLoaded', event => {
     var div;
 
     div = document.createElement('div');
-    document.body.appendChild(div);
+    body.appendChild(div);
     widgets.title.render(div, 'title', 'id_title').setState("Matthew");
 
     div = document.createElement('div');
-    document.body.appendChild(div);
+    body.appendChild(div);
     widgets.description.render(div, 'description', 'id_description').setState("just this guy, y'know?");
 
     div = document.createElement('div');
-    document.body.appendChild(div);
+    body.appendChild(div);
     widgets.office.render(div, 'office', 'id_office').setState("charlbury");
 });
 
-        </script>
-    </head>
-    <body data-widgets="{{ widgets }}">
-    </body>
-</html>
+    </script>
+{% endblock %}
+
+
+{% block content %}
+    <div id="form-field-demo" data-widgets="{{ widgets }}">
+    </div>
+{% endblock %}
