@@ -15,18 +15,36 @@ document.addEventListener('DOMContentLoaded', event => {
     var body = document.getElementById('form-field-demo');
 
     var widgetData = JSON.parse(body.dataset.widgets);
-    widgets = [];
+    widgets = {};
     for (name in widgetData) {
         widgets[name] = telepath.unpack(widgetData[name]);
     }
 
+    var boundWidgets = {};
     var formData = JSON.parse(body.dataset.formdata);
     for (fieldName in formData) {
         var div = document.createElement('div');
         div.style.clear='both';
         body.appendChild(div);
-        widgets[fieldName].render(div, fieldName, 'id_' + fieldName).setState(formData[fieldName]);
+        boundWidgets[fieldName] = widgets[fieldName].render(div, fieldName, 'id_' + fieldName);
+        boundWidgets[fieldName].setState(formData[fieldName]);
     }
+
+    $('#get-value').click(function() {
+        var result = {};
+        for (fieldName in boundWidgets) {
+            result[fieldName] = boundWidgets[fieldName].getValue();
+        }
+        alert(JSON.stringify(result));
+    });
+
+    $('#get-state').click(function() {
+        var result = {};
+        for (fieldName in boundWidgets) {
+            result[fieldName] = boundWidgets[fieldName].getState();
+        }
+        alert(JSON.stringify(result));
+    });
 });
 
     </script>
@@ -36,4 +54,6 @@ document.addEventListener('DOMContentLoaded', event => {
 {% block content %}
     <div id="form-field-demo" data-widgets="{{ widgets }}" data-formdata="{{ form_data }}">
     </div>
+    <button id="get-value">get form values</button>
+    <button id="get-state">get form state</button>
 {% endblock %}
