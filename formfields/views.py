@@ -18,6 +18,12 @@ def index(request):
         'title': "Matthew",
         'description': "just this guy, y'know?",
         'office': "charlbury",
+        'profile_page': {
+            'id': 3,
+            'parentId': 2,
+            'title': 'Matthew',
+            'editUrl': '/cms/pages/3/',
+        },
     })
 
     return render(request, 'formfields/index.html', {

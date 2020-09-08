@@ -1,10 +1,12 @@
 {% extends "wagtailadmin/base.html" %}
 
 {% block extra_css %}
-    {{ media.css }}
+{% include "wagtailadmin/pages/_editor_css.html" %}
+{{ media.css }}
 {% endblock %}
 
 {% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
     {{ media.js }}
 
     <script>
