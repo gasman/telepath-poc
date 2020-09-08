@@ -1,6 +1,8 @@
+{% load static %}
 <!DOCTYPE HTML>
 <html>
     <head>
+        <script src="{% static 'formfields/js/jquery-3.5.1.min.js' %}"></script>
         {{ media.js }}
         {{ media.css }}
         <script>
@@ -11,9 +13,19 @@ document.addEventListener('DOMContentLoaded', event => {
     for (name in widgetData) {
         widgets[name] = telepath.unpack(widgetData[name]);
     }
-    widgets.title.render(document.body, 'title', 'id_title', "Matthew");
-    widgets.description.render(document.body, 'description', 'id_description', "just this guy, y'know?");
-    widgets.office.render(document.body, 'office', 'id_office', "charlbury");
+    var div;
+
+    div = document.createElement('div');
+    document.body.appendChild(div);
+    widgets.title.render(div, 'title', 'id_title').setState("Matthew");
+
+    div = document.createElement('div');
+    document.body.appendChild(div);
+    widgets.description.render(div, 'description', 'id_description').setState("just this guy, y'know?");
+
+    div = document.createElement('div');
+    document.body.appendChild(div);
+    widgets.office.render(div, 'office', 'id_office').setState("charlbury");
 });
 
         </script>
