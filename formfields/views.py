@@ -14,8 +14,14 @@ def index(request):
         name: js_context.pack(field.widget)
         for name, field in form.fields.items()
     })
+    form_data = json.dumps({
+        'title': "Matthew",
+        'description': "just this guy, y'know?",
+        'office': "charlbury",
+    })
 
     return render(request, 'formfields/index.html', {
         'media': js_context.media,
         'widgets': widgets,
+        'form_data': form_data,
     })

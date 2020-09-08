@@ -17,19 +17,13 @@ document.addEventListener('DOMContentLoaded', event => {
     for (name in widgetData) {
         widgets[name] = telepath.unpack(widgetData[name]);
     }
-    var div;
 
-    div = document.createElement('div');
-    body.appendChild(div);
-    widgets.title.render(div, 'title', 'id_title').setState("Matthew");
-
-    div = document.createElement('div');
-    body.appendChild(div);
-    widgets.description.render(div, 'description', 'id_description').setState("just this guy, y'know?");
-
-    div = document.createElement('div');
-    body.appendChild(div);
-    widgets.office.render(div, 'office', 'id_office').setState("charlbury");
+    var formData = JSON.parse(body.dataset.formdata);
+    for (fieldName in formData) {
+        var div = document.createElement('div');
+        body.appendChild(div);
+        widgets[fieldName].render(div, fieldName, 'id_' + fieldName).setState(formData[fieldName]);
+    }
 });
 
     </script>
@@ -37,6 +31,6 @@ document.addEventListener('DOMContentLoaded', event => {
 
 
 {% block content %}
-    <div id="form-field-demo" data-widgets="{{ widgets }}">
+    <div id="form-field-demo" data-widgets="{{ widgets }}" data-formdata="{{ form_data }}">
     </div>
 {% endblock %}
