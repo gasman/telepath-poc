@@ -1,10 +1,12 @@
+{% load static %}
 <!DOCTYPE HTML>
 <html>
     <head>
-        {{ collage.media.js }}
-        {{ collage.media.css }}
+        {{ media.css }}
+        {{ media.js }}
+        <script src="{% static 'collage/js/collage.js' %}"></script>
     </head>
     <body>
-        <canvas class="collage" width="640" height="480" data-shapes="{{ collage.shape_decls }}"></canvas>
+        <canvas id="collage" width="640" height="480" data-shapes="{{ shapes_json }}"></canvas>
     </body>
 </html>
