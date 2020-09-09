@@ -102,3 +102,14 @@ On the Javascript side, the corresponding constructor function is registered und
     }
 
     telepath.register('shapes.Circle', Circle);
+
+
+## Form widgets
+
+The `formfields` app (accessible at the URL `/forms/`) demonstrates this being used on Django form widget objects. Currently this depends on a patch to Wagtail: [gasman/telepath-streamfield](https://github.com/gasman/wagtail/tree/telepath-streamfield)
+
+The Javascript object corresponding to a `Widget` instance implements a single method `render(container, name, id)`, which renders a copy of the widget into the HTML element `container`, with the given name and ID, and returns an accessor object with the additional methods:
+
+* `getValue()` - return the submittable value of this form field
+* `getState()` - return an object containing all state necessary to replicate this field elsewhere. (Often this will just be the field value, but e.g. an image chooser will also need to include the image thumbnail URL / dimensions, not just the image ID)
+* `setState(state)` - set this field to the given state (as per `getState`).
