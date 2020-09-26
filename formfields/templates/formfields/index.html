@@ -52,8 +52,10 @@ document.addEventListener('DOMContentLoaded', event => {
 
 
 {% block content %}
-    <div id="form-field-demo" data-widgets="{{ widgets }}" data-formdata="{{ form_data }}">
-    </div>
+    <form>
+        <div id="form-field-demo" data-widgets="{{ widgets }}" data-formdata="{{ form_data }}">
+        </div>
+    </form>
     <button id="get-value">get form values</button>
     <button id="get-state">get form state</button>
 {% endblock %}
