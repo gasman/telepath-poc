@@ -20,6 +20,7 @@ from django.urls import include, path
 
 from collage.views import index as collage_index
 from formfields.views import index as formfields_index
+from streamfield.views import index as streamfield_index
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
@@ -28,6 +29,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 urlpatterns = [
     path('', collage_index),
     path('forms/', formfields_index),
+    path('streamfield/', streamfield_index),
     path('admin/', admin.site.urls),
 
     path('cms/', include(wagtailadmin_urls)),

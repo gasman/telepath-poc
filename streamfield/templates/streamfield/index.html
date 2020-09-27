@@ -1,0 +1,34 @@
+{% extends "wagtailadmin/base.html" %}
+
+{% block extra_css %}
+{% include "wagtailadmin/pages/_editor_css.html" %}
+{{ media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ media.js }}
+
+    <script>
+
+document.addEventListener('DOMContentLoaded', event => {
+    var body = document.getElementById('streamfield-demo');
+
+    var blockData = JSON.parse(body.dataset.block);
+    var blockDef = telepath.unpack(blockData);
+
+    var blockElement = document.createElement('div');
+    body.appendChild(blockElement);
+    var block = blockDef.render(blockElement)
+});
+
+    </script>
+{% endblock %}
+
+
+{% block content %}
+    <form>
+        <div id="streamfield-demo" data-block="{{ block_json }}" data-value="{{ value_json }}">
+        </div>
+    </form>
+{% endblock %}

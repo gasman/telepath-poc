@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'telepath',
     'collage',
     'formfields',
+    'streamfield',
 ]
 
 MIDDLEWARE = [
