@@ -20,10 +20,10 @@ class Widget {
         this.idForLabel = idForLabel;
     }
 
-    render(container, name, id) {
+    render(placeholder, name, id) {
         var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
         var dom = $(html);
-        $(container).append(dom);
+        $(placeholder).replaceWith(dom);
         return new BoundWidget(dom, name);
     }
 }
@@ -48,10 +48,10 @@ class BoundRadioSelect {
 }
 
 class RadioSelect extends Widget {
-    render(container, name, id) {
+    render(placeholder, name, id) {
         var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
         var dom = $(html);
-        $(container).append(dom);
+        $(placeholder).replaceWith(dom);
         return new BoundRadioSelect(dom, name);
     }
 }
@@ -67,10 +67,10 @@ class PageChooser {
         this.userPerms = userPerms;
     }
 
-    render(container, name, id) {
+    render(placeholder, name, id) {
         var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
         var dom = $(html);
-        $(container).append(dom);
+        $(placeholder).replaceWith(dom);
         return createPageChooser(id, this.pageTypes, null, this.canChooseRoot, this.userPerms);
     }
 }

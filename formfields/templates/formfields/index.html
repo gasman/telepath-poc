@@ -23,10 +23,14 @@ document.addEventListener('DOMContentLoaded', event => {
     var boundWidgets = {};
     var formData = JSON.parse(body.dataset.formdata);
     for (fieldName in formData) {
-        var div = document.createElement('div');
-        div.style.clear='both';
-        body.appendChild(div);
-        boundWidgets[fieldName] = widgets[fieldName].render(div, fieldName, 'id_' + fieldName);
+        var row = document.createElement('div');
+        row.style.clear='both';
+        body.appendChild(row);
+
+        var fieldElement = document.createElement('div');
+        row.appendChild(fieldElement);
+
+        boundWidgets[fieldName] = widgets[fieldName].render(fieldElement, fieldName, 'id_' + fieldName);
         boundWidgets[fieldName].setState(formData[fieldName]);
     }
 
