@@ -22,7 +22,17 @@ class FieldBlock {
         $(placeholder).replaceWith(dom);
         var widgetElement = dom.find('[data-streamfield-widget]').get(0);
         var boundWidget = this.widget.render(widgetElement, prefix, prefix);
-        return boundWidget;
+        return {
+            'setState': function(state) {
+                boundWidget.setState(state);
+            },
+            'getState': function() {
+                boundWidget.getState();
+            },
+            'getValue': function() {
+                boundWidget.getValue();
+            },
+        };
     }
 }
 telepath.register('streamfield.FieldBlock', FieldBlock);
@@ -48,7 +58,8 @@ class StructBlock {
         var dom = $(html);
         $(placeholder).replaceWith(dom);
 
-        this.boundBlocks = this.childBlocks.map(childBlock => {
+        var boundBlocks = {};
+        this.childBlocks.forEach(childBlock => {
             var childHtml = $(`
                 <div class="field">
                     <label class="field__label"></label>
@@ -61,8 +72,31 @@ class StructBlock {
             label.text(childBlock.meta.label);
             var childBlockElement = childDom.find('[data-streamfield-block]').get(0);
             var boundBlock = childBlock.render(childBlockElement, prefix + '-' + childBlock.name);
-            return boundBlock;
+            
+            boundBlocks[childBlock.name] = boundBlock;
         });
+
+        return {
+            'setState': function(state) {
+                for (name in state) {
+                    boundBlocks[name].setState(state[name]);
+                }
+            },
+            'getState': function() {
+                var state = {};
+                for (name in boundBlocks) {
+                    state[name] = boundBlocks[name].getState();
+                }
+                return state;
+            },
+            'getValue': function() {
+                var value = {};
+                for (name in boundBlocks) {
+                    value[name] = boundBlocks[name].getValue();
+                }
+                return value;
+            },
+        };
     }
 }
 telepath.register('streamfield.StructBlock', StructBlock);

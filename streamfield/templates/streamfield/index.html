@@ -19,7 +19,9 @@ document.addEventListener('DOMContentLoaded', event => {
 
     var blockElement = document.createElement('div');
     body.appendChild(blockElement);
-    var block = blockDef.render(blockElement, 'body')
+    var block = blockDef.render(blockElement, 'body');
+
+    block.setState(JSON.parse(body.dataset.value));
 });
 
     </script>

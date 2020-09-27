@@ -18,7 +18,7 @@ def index(request):
     js_context = JSContext()
     block_json = json.dumps(js_context.pack(block))
 
-    value_json = json.dumps("hello world")
+    value_json = json.dumps({'first_name': "Spongebob", 'surname': "Squarepants"})
 
     return render(request, 'streamfield/index.html', {
         'media': js_context.media,
