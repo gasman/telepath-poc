@@ -3,13 +3,16 @@ import json
 from django.shortcuts import render
 from telepath import JSContext
 
-from wagtail.core.blocks import CharBlock
+from wagtail.core import blocks
 
-from streamfield import blocks  # load adapters
+from streamfield import blocks as foo  # load adapters
 
 
 def index(request):
-    block = CharBlock()
+    block = blocks.StructBlock([
+        ('first_name', blocks.CharBlock()),
+        ('surname', blocks.CharBlock()),
+    ])
     block.set_name("title")
 
     js_context = JSContext()
